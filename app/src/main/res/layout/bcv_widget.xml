@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#AADDDDDD"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/widget_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="BCV Tracker"
+        android:textColor="#000000"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/widget_usd_rate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="USD: ---"
+        android:textColor="#000000" />
+        
+    <TextView
+        android:id="@+id/widget_eur_rate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="EUR: ---"
+        android:textColor="#000000" />
+
+</LinearLayout>

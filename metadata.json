@@ -1,0 +1,6 @@
+{
+  "name": "BCV Tracker",
+  "description": "BCV Rate Tracker with Smart Notifications and Particle Background",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
