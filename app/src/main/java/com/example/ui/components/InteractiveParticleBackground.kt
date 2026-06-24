@@ -4,6 +4,8 @@ import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.detectDragGestures
 import androidx.compose.foundation.gestures.detectTapGestures
+import androidx.compose.foundation.gestures.awaitEachGesture
+import androidx.compose.foundation.gestures.awaitFirstDown
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.*
@@ -156,7 +158,7 @@ fun InteractiveParticleBackground(
             }
 
             time += 0.05f
-            delay(16L) // ~60 FPS
+            delay(16L) // Standard reliable delay
         }
     }
 
@@ -165,23 +167,26 @@ fun InteractiveParticleBackground(
             .fillMaxSize()
             .onSizeChanged { size = it }
             .pointerInput(Unit) {
-                detectDragGestures(
-                    onDragStart = { touchPosition = it },
-                    onDrag = { change, _ -> touchPosition = change.position },
-                    onDragEnd = { touchPosition = null },
-                    onDragCancel = { touchPosition = null }
-                )
-            }
-            .pointerInput(Unit) {
-                detectTapGestures(
-                    onPress = {
-                        touchPosition = it
-                        tryAwaitRelease()
-                        touchPosition = null
-                    }
-                )
+                awaitEachGesture {
+                    val down = awaitFirstDown(requireUnconsumed = false)
+                    touchPosition = down.position
+                    do {
+                        val event = awaitPointerEvent()
+                        val anyPressed = event.changes.any { it.pressed }
+                        if (anyPressed) {
+                            val pointer = event.changes.firstOrNull { it.pressed }
+                            if (pointer != null) {
+                                touchPosition = pointer.position
+                            }
+                        } else {
+                            touchPosition = null
+                        }
+                    } while (event.changes.any { it.pressed })
+                    touchPosition = null
+                }
             }
     ) {
+        val currentTime = time // Force redraw on state change
         val centerOffset = Offset(size.width / 2f, size.height * 0.4f)
         drawRect(
             brush = androidx.compose.ui.graphics.Brush.radialGradient(

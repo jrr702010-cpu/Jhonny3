@@ -53,7 +53,7 @@ fun DashboardScreen(
                             Text("$", color = Color.White, fontWeight = FontWeight.Bold, fontSize = 20.sp)
                         }
                         Column {
-                            Text("Jhonny Monitor", fontWeight = FontWeight.Bold, fontSize = 18.sp, color = Slate100)
+                            Text("BCV Tracker", fontWeight = FontWeight.Bold, fontSize = 18.sp, color = Slate100)
                             Text("RED NEURONAL ACTIVA", fontWeight = FontWeight.SemiBold, fontSize = 10.sp, color = NeonEmerald, letterSpacing = 1.sp)
                         }
                     }
